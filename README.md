@@ -53,7 +53,7 @@ cordova.plugins.LineLogin.login(
 ### Logout
 
 ```
-cordova.plugins.LineLogin.login(
+cordova.plugins.LineLogin.logout(
   function(){
     // success
   },
