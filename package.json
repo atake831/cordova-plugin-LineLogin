@@ -1,0 +1,31 @@
+{
+  "name": "cordova-plugin-LineLogin",
+  "version": "0.1.0",
+  "description": "Line Login plugin",
+  "cordova": {
+    "id": "cordova-plugin-LineLogin",
+    "platforms": [
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atake831/cordova-plugin-LineLogin.git"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-ios"
+  ],
+  "engines": [
+    {
+      "name": "cordova-ios",
+      "version": ">=4.0.0"
+    }
+  ],
+  "author": "atake831",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/atake831/cordova-plugin-LineLogin/issues"
+  },
+  "homepage": "https://github.com/atake831/cordova-plugin-LineLogin#readme"
+}

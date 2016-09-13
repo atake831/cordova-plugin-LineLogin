@@ -3,6 +3,7 @@
 #import <LineAdapterUI/LineAdapterUI.h>
 
 @interface LineLogin ()
+@property (strong, nonatomic) NSString* loginCallbackId;
 @end
 
 @implementation LineLogin {
@@ -34,17 +35,21 @@
 - (void)login:(CDVInvokedUrlCommand *)command
 {
     if (adapter.isAuthorized) {
-        // [self alert:@"Already authorized" message:nil];
-        NSLog(@"error Line Login plugin");
+        CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
+                                                          messageAsString:adapter.MID];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        
         return;
     }
     
     if (!adapter.canAuthorizeUsingLineApp) {
-        // [self alert:@"LINE is not installed" message:nil];
         NSLog(@"error Line Login plugin");
+        CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                                                          messageAsString:@"cannot authorize using line app"];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         return;
     }
-    
+    self.loginCallbackId = command.callbackId;
     [adapter authorize];
 }
 
@@ -52,22 +57,32 @@
 {
     LineAdapter *lineAdapter = notification.object;
     if (lineAdapter.isAuthorized) {
-        // [self alert:@"Login success!" message:nil];
-        NSLog(@"success Line Login plugin");
+        CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
+                                                          messageAsString:lineAdapter.MID];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:self.loginCallbackId];
+
+        self.loginCallbackId = nil;
         return;
     }
     
     NSError *error = notification.userInfo[@"error"];
     if (error) {
-        // [self alert:@"Login error!" message:error.localizedDescription];
-        NSLog(@"error Line Login plugin");
+        CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                                                          messageAsString:error.localizedDescription];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:self.loginCallbackId];
+        self.loginCallbackId = nil;
+        return;
     }
 }
 
 - (void)logout:(CDVInvokedUrlCommand *)command
 {
-  // TODO:
+    [adapter unauthorize];
+    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
+                                                      messageAsString:@"success"];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 @end
+
 
