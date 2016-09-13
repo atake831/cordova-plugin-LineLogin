@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-LineLogin" version="0.1.0" xmlns="http://apache.org/cordova/ns/plugins/1.0">
+    <name>LineLogin</name>
+    <license>MIT</license>
+    <engines>
+      <engine name="cordova-ios" version=">=4.0.0" />
+    </engines>
+    <platform name="ios">
+      <js-module name="LineLogin" src="www/LineLogin.js">
+          <clobbers target="cordova.plugins.LineLogin" />
+      </js-module>
+
+      <config-file target="config.xml" parent="/*">
+        <feature name="LineLogin">
+          <param name="ios-package" value="LineLogin"/>
+          <param name="onload" value="true" />
+        </feature>
+        <plugin name="LineLogin" value="LineLogin"/>
+        <access origin="https://access.line.me" />
+        <access origin="https://api.line.me" />
+        <access origin="https://dl.profile.line-cdn.net" />
+        <access origin="https://dl.profile.line.naver.jp" />
+        <access origin="https://lcs.naver.jp" />
+        <access origin="https://obs.line-apps.com" />
+        <access origin="https://scdn.line-apps.com" />
+      </config-file>
+
+      <header-file src="src/ios/LineLogin.h" />
+      <source-file src="src/ios/LineLogin.m" />
+
+      <framework custom="true" src="src/ios/LineSDK/LineAdapter.framework" />
+      <framework custom="true" src="src/ios/LineSDK/LineAdapterLogin.framework" />
+      <framework custom="true" src="src/ios/LineSDK/LineAdapterUI.framework" />
+      <framework custom="true" src="src/ios/LineSDK/LineAdapterUI.bundle" />
+
+      <framework src="Foundation.framework" />
+      <framework src="UIKit.framework" />
+      <framework src="Security.framework" />
+      <framework src="CoreTelephony.framework" />
+      <framework src="CoreGraphics.framework" />
+      <framework src="CoreText.framework" />
+
+      <config-file target="*-Info.plist" parent="CFBundleURLTypes">
+        <array>
+          <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+              <string>line3rdp.$PACKAGE_NAME</string>
+            </array>
+          </dict>
+        </array>
+      </config-file>
+
+      <config-file target="*-Info.plist" parent="LSApplicationQueriesSchemes">
+        <array>
+          <string>lineauth</string>
+          <string>line3rdp.$PACKAGE_NAME</string>
+        </array>
+      </config-file>
+
+      <config-file target="*-Info.plist" parent="NSAppTransportSecurity">
+        <dict>
+          <key>NSExceptionDomains</key>
+          <dict>
+            <key>access.line.me</key>
+            <dict>
+              <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+              <false/>
+            </dict>
+            <key>api.line.me</key>
+            <dict>
+              <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+              <false/>
+            </dict>
+            <key>dl.profile.line-cdn.net</key>
+            <dict>
+              <key>NSIncludesSubdomains</key>
+              <true/>
+              <key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+              <true/>
+              <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+              <false/>
+            </dict>
+            <key>dl.profile.line.naver.jp</key>
+            <dict>
+              <key>NSIncludesSubdomains</key>
+              <true/>
+              <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+              <false/>
+            </dict>
+            <key>lcs.naver.jp</key>
+            <dict>
+              <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+              <false/>
+            </dict>
+            <key>obs.line-apps.com</key>
+            <dict>
+              <key>NSIncludesSubdomains</key>
+              <true/>
+              <key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+              <true/>
+              <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+              <false/>
+            </dict>
+            <key>scdn.line-apps.com</key>
+            <dict>
+              <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+              <false/>
+            </dict>
+          </dict>
+        </dict>
+      </config-file>
+
+    </platform>
+    <hook type="after_prepare" src="scripts/after_prepare.js" />
+</plugin>
