@@ -7,3 +7,8 @@ exports.login = function(success, error) {
 exports.logout = function(success, error) {
     exec(success, error, "LineLogin", "logout", []);
 };
+
+exports.getProfile = function(success, error) {
+    exec(success, error, "LineLogin", "getProfile", []);
+};
+

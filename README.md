@@ -41,7 +41,7 @@ AppDelegate.mを編集。以下を追記する。
 
 ```
 cordova.plugins.LineLogin.login(
-  function(){
+  function(mid){
     // success
   },
   function(){
@@ -56,6 +56,26 @@ cordova.plugins.LineLogin.login(
 cordova.plugins.LineLogin.logout(
   function(){
     // success
+  },
+  function(){
+    // fail
+  }
+);
+```
+
+### Get Profile
+
+```
+cordova.plugins.LineLogin.getProfile(
+  function(data){
+    // success
+    //
+    // data = {
+    //   displayName: 
+    //   mid: 
+    //   pictureUrl: 
+    //   statusMessage: 
+    // }
   },
   function(){
     // fail

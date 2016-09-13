@@ -5,4 +5,5 @@
 @interface LineLogin : CDVPlugin 
 - (void)login:(CDVInvokedUrlCommand *)command;
 - (void)logout:(CDVInvokedUrlCommand *)command;
+- (void)getProfile:(CDVInvokedUrlCommand *)command;
 @end
